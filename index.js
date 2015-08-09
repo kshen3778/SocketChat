@@ -17,7 +17,7 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
-  
+
   socket.on('add user', function(username){
 	 // we store the username in the socket session for this client
     socket.username = username;
@@ -28,16 +28,17 @@ io.on('connection', function(socket){
     socket.emit('login', {
       users: users
     });
-	
+
 	//echo to all users that a new user has connected
 	socket.broadcast.emit('user joined', {
       username: socket.username,
       users: users
     });
-	
+
   });
 });
 
-http.listen(process.env.PORT || 3000, function(){
-	console.log('listening on *:3000');
+var port = process.env.PORT || 3000;
+http.listen(port, function(){
+	console.log('listening on ' + port);
 });
