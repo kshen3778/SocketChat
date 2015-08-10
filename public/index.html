@@ -15,14 +15,27 @@
 			<div class="chatArea">
 				<ul id="messages"></ul> <!--Chat area-->
 			</div>
-			<form action=""> <!-- Typing area -->
+			<div class="row" style="position: fixed; bottom: 10px;">
+				<form action="">
+					<div class="col-md-9">
+						<input class="form-control" type="text" maxlength="14" id="chatmsg" placeholder="Message"/>
+					</div>
+					<div class="col-md-3">
+						<button class="btn btn-default">Send</button>
+					</div>
+				</form>
+			</div>
+			<!--<form action=""> 
 				<input id="m" autocomplete="off" /><button>Send</button>
-			</form>
+			</form>-->
 		</li>
+
 		<li class="login page">
-		  <div class="form">
-			<h3 class="title">What's your nickname?</h3>
-			<input class="usernameInput" type="text" maxlength="14" />
+		  <div class="form-group">
+			  <div class="col-md-2">
+				<label for="usr">Username:</label>
+				<input class="form-control" type="text" maxlength="14" id="usr"/>
+			  </div>
 		  </div>
 		</li>
 	</ul>

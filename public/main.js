@@ -9,7 +9,7 @@ var username;
 $(document).ready(function(){
 		
 		$window = $(window);
-		$usernameInput = $('.usernameInput'); //Username input field
+		$usernameInput = $('#usr'); //Username input field
 		$loginPage = $('.login.page'); //Login page
 		$chatPage = $('.chat.page'); //chat page
 		
@@ -84,12 +84,12 @@ function log(message){
   
 //Send a chat message from the user's input box
 function sendMessage(){
-	var message = $('#m').val();
+	var message = $('#chatmsg').val();
 	
 	//if its a non empty message and the user is connected then send it
 	if(message && connected){
 		socket.emit('chat message', username + ": " + message);
-		$('#m').val(''); //set the input to empty
+		$('#chatmsg').val(''); //set the input to empty
 	}
 }
 
