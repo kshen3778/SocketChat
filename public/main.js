@@ -42,6 +42,12 @@ $(document).ready(function(){
 			log(data.username + ' joined');
 		  });
 		  
+		  //server displayed user left
+		  socket.on('user left', function (data) {
+			log(data.username + ' left');
+		  });
+
+		  
 		 // Keyboard events
 		 $window.keydown(function (event) {
 			
@@ -82,7 +88,7 @@ function sendMessage(){
 	
 	//if its a non empty message and the user is connected then send it
 	if(message && connected){
-		socket.emit('chat message', message);
+		socket.emit('chat message', username + ": " + message);
 		$('#m').val(''); //set the input to empty
 	}
 }

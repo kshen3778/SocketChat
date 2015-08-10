@@ -36,6 +36,22 @@ io.on('connection', function(socket){
     });
 
   });
+  
+  // executed when user disconnected
+  socket.on('disconnect', function () {
+    // remove the username from global usernames list
+    
+      delete usernames[socket.username];
+      --users;
+
+      // echo globally that this client has left
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+        users: users
+      });
+    
+  });
+  
 });
 
 var port = process.env.PORT || 3000;
