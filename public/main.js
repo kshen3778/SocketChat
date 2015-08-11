@@ -63,7 +63,8 @@ $(document).ready(function(){
 });
 
 function log(message){
-	$('#messages').append($('<li>').text(message));
+	$('#messages').append($('<li class="list-group-item">').text(message));
+	$('.scrollable-list').scrollTop($('.scrollable-list')[0].scrollHeight);
 }
 
 // Sets the client's username
