@@ -15,7 +15,7 @@ form button {
 }*/
 .scrollable-list {
     height: auto;
-    max-height: 77vh;
+    max-height: 90vh;
     overflow-x: hidden;
     word-wrap: break-word;
 }
