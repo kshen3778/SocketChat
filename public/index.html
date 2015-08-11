@@ -13,16 +13,33 @@
 	<ul class="pages">
 		<li class="chat page">
 			<div class="chatArea">
-				<ul id="messages"></ul> <!--Chat area-->
+				<ul class="list-group scrollable-list" id="messages"></ul> <!--Chat area-->
 			</div>
-			<form action=""> <!-- Typing area -->
+			<div class="row" style="position: fixed; bottom: 10px;">
+				<div class="col-md-4 col-md-offset-4">
+					<form action="">
+						<div class="input-group">
+							<input class="form-control" type="text" maxlength="200" id="chatmsg" placeholder="Message"/>
+							<span class="input-group-btn">
+								<button class="btn btn-default">Send</button>
+							</span>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!--<form action=""> 
 				<input id="m" autocomplete="off" /><button>Send</button>
-			</form>
+			</form>-->
 		</li>
+
 		<li class="login page">
-		  <div class="form">
-			<h3 class="title">What's your nickname?</h3>
-			<input class="usernameInput" type="text" maxlength="14" />
+		  <form class="form-horizontal">
+			  <div class="form-group">
+				  <label for="usr" class="col-md-2 col-md-offset-1 control-label">Username:</label>
+				  <div class="col-md-6">
+					<input class="form-control" type="text" maxlength="20" id="usr"/>
+				  </div>
+			  </div>
 		  </div>
 		</li>
 	</ul>
