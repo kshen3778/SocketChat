@@ -63,7 +63,10 @@ $(document).ready(function(){
 });
 
 function log(message){
-	$('#messages').append($('<li class="list-group-item">').text(message));
+	//add emoticons
+	var msg = message.replace(":)", '<img src="smile.jpg"  width="20" height="20" />');
+	
+	$('#messages').append($('<li class="list-group-item">').html(msg));
 	$('.scrollable-list').scrollTop($('.scrollable-list')[0].scrollHeight);
 }
 
