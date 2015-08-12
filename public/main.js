@@ -6,6 +6,7 @@ var socket;
 
 var connected = false;
 var username;
+var error = false; //is the username warning message displyed
 
 var emoticons = {
 	":)": "smile",
@@ -55,7 +56,6 @@ $(document).ready(function(){
 		  
 		 // Keyboard events
 		 $window.keydown(function (event) {
-			
 			// When the client hits ENTER on their keyboard
 			if (event.which === 13) {
 			  if(username){ //sends a message with Enter
@@ -80,13 +80,16 @@ function log(message){
 	$('#messages').append($('<li class="list-group-item">').html(msg));
 	$('.scrollable-list').scrollTop($('.scrollable-list')[0].scrollHeight);
 }
-
-// Sets the client's username
-  function setUsername () {
+	
+	//check if username contains special characters
+function isValid(str){
+	return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+}
+	// Sets the client's username
+function setUsername () {
     username = $usernameInput.val().trim();
-
-    // If the username is valid
-    if (username) {
+    // If the username is not empty and is valid
+    if (username && isValid(username)) {
       $loginPage.fadeOut();
       $chatPage.show();
       $loginPage.off('click');
@@ -95,7 +98,14 @@ function log(message){
       // Tell the server your username
       socket.emit('add user', username);
     }
-  }
+	else{
+		if(error == false){
+			$('#inputfield').after("<div>Your username can only contain letters and numbers</div>");
+			error = true;
+			username = null;
+		}
+	}
+}
   
 //Send a chat message from the user's input box
 function sendMessage(){
