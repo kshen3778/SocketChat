@@ -6,6 +6,11 @@ var socket;
 
 var connected = false;
 var username;
+
+var emoticons = {
+	":)": "smile",
+	":(": "sad"
+};
 $(document).ready(function(){
 		
 		$window = $(window);
@@ -63,9 +68,15 @@ $(document).ready(function(){
 });
 
 function log(message){
+	var msg = message; //message with emoticon pictures
+	for(var key in emoticons){
+		//add emoticons
+		msg = msg.replace(key, '<img src="' + emoticons[key] + '.jpg" width="20" height="20" />');
+		console.log(msg);
+	}
 	//add emoticons
-	var msg = message.replace(":)", '<img src="smile.jpg"  width="20" height="20" />');
-	
+	//var msg = message.replace(":)", '<img src="smile.jpg"  width="20" height="20" />');
+	console.log(msg);
 	$('#messages').append($('<li class="list-group-item">').html(msg));
 	$('.scrollable-list').scrollTop($('.scrollable-list')[0].scrollHeight);
 }
