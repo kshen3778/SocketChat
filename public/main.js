@@ -68,10 +68,10 @@ $(document).ready(function(){
 });
 
 function log(message){
-	var msg = message; //message with emoticon pictures
+	var msg = message;
 	for(var key in emoticons){
 		//add emoticons
-		msg = msg.replace(key, '<img src="' + emoticons[key] + '.jpg" width="20" height="20" />');
+		msg = msg.split(key).join('<img src="' + emoticons[key] + '.jpg" width="20" height="20" />');
 		console.log(msg);
 	}
 	//add emoticons
@@ -90,21 +90,24 @@ function setUsername () {
     username = $usernameInput.val().trim();
     // If the username is not empty and is valid
     if (username && isValid(username)) {
-      $loginPage.fadeOut();
-      $chatPage.show();
-      $loginPage.off('click');
-      //$currentInput = $inputMessage.focus();
+	  
+		$loginPage.fadeOut();
+		$chatPage.show();
+		$loginPage.off('click');
 
-      // Tell the server your username
-      socket.emit('add user', username);
+		// Tell the server your username
+		socket.emit('add user', username);
+	  
+	  
     }
 	else{
 		if(error == false){
-			$('#inputfield').after("<div>Your username can only contain letters and numbers</div>");
+			$('#inputfield').after("<div class='text-danger'>Invalid username. Your username can only contain letters and numbers</div>");
 			error = true;
-			username = null;
+			username = null; //reset
 		}
-	}
+	}	
+	
 }
   
 //Send a chat message from the user's input box
