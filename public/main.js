@@ -6,6 +6,12 @@ var socket;
 
 var connected = false;
 var username;
+var error = false; //is the username warning message displyed
+
+var emoticons = {
+	":)": "smile",
+	":(": "sad"
+};
 $(document).ready(function(){
 		
 		$window = $(window);
@@ -50,7 +56,6 @@ $(document).ready(function(){
 		  
 		 // Keyboard events
 		 $window.keydown(function (event) {
-			
 			// When the client hits ENTER on their keyboard
 			if (event.which === 13) {
 			  if(username){ //sends a message with Enter
@@ -63,25 +68,47 @@ $(document).ready(function(){
 });
 
 function log(message){
-	$('#messages').append($('<li class="list-group-item">').text(message));
+	var msg = message;
+	for(var key in emoticons){
+		//add emoticons
+		msg = msg.split(key).join('<img src="' + emoticons[key] + '.jpg" width="20" height="20" />');
+		console.log(msg);
+	}
+	//add emoticons
+	//var msg = message.replace(":)", '<img src="smile.jpg"  width="20" height="20" />');
+	console.log(msg);
+	$('#messages').append($('<li class="list-group-item">').html(msg));
 	$('.scrollable-list').scrollTop($('.scrollable-list')[0].scrollHeight);
 }
-
-// Sets the client's username
-  function setUsername () {
+	
+	//check if username contains special characters
+function isValid(str){
+	return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+}
+	// Sets the client's username
+function setUsername () {
     username = $usernameInput.val().trim();
+    // If the username is not empty and is valid
+    if (username && isValid(username)) {
+	  
+		$loginPage.fadeOut();
+		$chatPage.show();
+		$loginPage.off('click');
 
-    // If the username is valid
-    if (username) {
-      $loginPage.fadeOut();
-      $chatPage.show();
-      $loginPage.off('click');
-      //$currentInput = $inputMessage.focus();
-
-      // Tell the server your username
-      socket.emit('add user', username);
+		// Tell the server your username
+		socket.emit('add user', username);
+	  
+	  
     }
-  }
+	else{
+		if(error == false){
+			$('#inputfield').after("<div class='text-danger'>Invalid username. Your username can only contain letters and numbers</div>");
+			error = true;
+			username = null; //reset
+		}
+	}	
+	
+}
   
 //Send a chat message from the user's input box
 function sendMessage(){
